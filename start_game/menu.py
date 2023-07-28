@@ -32,8 +32,7 @@ class Menu(Body):
             self.set_and_check_number()
             restart_flag = True
         elif msg == 'нет':
-            self.set_user_number()
-            self.check_number()
+            self.set_and_check_number()
         return restart_flag
     
     def clear_screen(self):

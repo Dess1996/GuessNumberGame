@@ -11,7 +11,7 @@ class Body(CheckUserAction):
         self.on_pause = False
         self.on_exit = False
     
-    def check_limitation(self):
+    def check_limitation(self): # TODO: доработать
         self.check_number()
         while not self.check_ok:
             print('Я жду от вас целое число от 1 до 100!')
@@ -51,7 +51,6 @@ class Body(CheckUserAction):
             else:
                 print('Поздравляем! Вы угадали за %d попыток' % self.attempts)
                 break
-#                self.start()
     
     def pause(self):
         self.clear_screen()
