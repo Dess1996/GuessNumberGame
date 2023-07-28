@@ -52,7 +52,7 @@ class Body(CheckUserAction):
                     print('Не угадал! Моё число число меньше!')
                     self.set_and_check_number()
                 else:
-                    self.attempts -=1
+                    self.attempts -= 1
                     print('Поздравляем! Вы угадали за %d попыток' % self.attempts)
                     self.exit()
     
@@ -70,8 +70,8 @@ class Body(CheckUserAction):
             self.battle_process()
         elif self.menu_number == 2:
             self.restart()
-        elif self.menu_number == 3:
-            msg = input('Статистика недоступна, нажмите да, чтобы выйти')
+        elif self.menu_number == 3:  # TODO: Доработать статистику, скорее всего понадобится создать новый класс
+            msg = input('Статистика недоступна, нажмите да, чтобы выйти: ')
             if msg == 'да':
                 return self.pause()
         elif self.menu_number == 4:
