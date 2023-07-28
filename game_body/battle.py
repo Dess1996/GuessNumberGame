@@ -3,6 +3,7 @@ from generator.generate_user_number import GenerateUserAction
 from generator.generate_computer_number import GenerateComputerNumber
 import sys
 
+
 class Body(CheckUserAction):
     def __init__(self):
         CheckUserAction.__init__(self)
@@ -12,9 +13,8 @@ class Body(CheckUserAction):
         self.on_exit = False
         self.check_ok = False
     
-    def check_limitation(self): # TODO: доработать
-        
-        if int(self.user_number)<100:
+    def check_limitation(self):
+        if int(self.user_number) < 100:
             print('Проверка прошла успешно')
             self.check_ok = True
         else:
@@ -53,7 +53,7 @@ class Body(CheckUserAction):
                     self.set_and_check_number()
                 else:
                     print('Поздравляем! Вы угадали за %d попыток' % self.attempts)
-                    break
+                    self.exit()
     
     def pause(self):
         self.clear_screen()
