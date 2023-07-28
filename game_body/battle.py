@@ -6,9 +6,10 @@ from generator.generate_computer_number import GenerateComputerNumber
 class Body(CheckUserAction):
     def __init__(self):
         CheckUserAction.__init__(self)
-        self.comp_number = 0
+        self.comp_number = 1
         self.menu_number = 0
         self.on_pause = False
+        self.on_exit = False
     
     def check_limitation(self):
         self.check_number()
@@ -28,28 +29,29 @@ class Body(CheckUserAction):
             print('Ах ты трусишка')
             self.restart()
     
+    def set_and_check_number(self):
+        self.set_user_number()
+        if self.user_number == 'пауза':
+            return self.pause()
+        self.check_limitation()
+    
     def battle_process(self):
+        self.set_and_check_number()
+        print('Хорошо, ты справился! Теперь я подумаю...')
+        if self.comp_number == 1:
+            self.get_computer_number()
         while self.comp_number != self.user_number:
-            if self.on_pause:
-                return self.pause()
             self.attempts += 1
             if self.comp_number > int(self.user_number):
                 print('Не угадал! Моё число больше!')
-                if self.is_exit():
-                    break
-                self.set_user_number()
-                self.check_limitation()
+                self.set_and_check_number()
             elif self.comp_number < int(self.user_number):
                 print('Не угадал! Моё число число меньше!')
-                if self.is_exit():
-                    break
-                if self.set_user_number() == 'пауза':
-                    self.pause()
-                self.check_limitation()
+                self.set_and_check_number()
             else:
                 print('Поздравляем! Вы угадали за %d попыток' % self.attempts)
-                
-                self.restart()
+                break
+#                self.start()
     
     def pause(self):
         self.clear_screen()
@@ -61,18 +63,18 @@ class Body(CheckUserAction):
               '4 - Завершить игру')
         self.menu_number = int(input('Выберете действие: '))
         if self.menu_number == 1:
-            self.set_user_number()
-            self.check_number()
+            self.on_pause = False
             self.battle_process()
         elif self.menu_number == 2:
             self.restart()
         elif self.menu_number == 3:
-            print('Статистика недоступна')
+            msg = input('Статистика недоступна, нажмите да, чтобы выйти')
+            if msg == 'да':
+                return self.pause()
         elif self.menu_number == 4:
             self.is_exit()
     
     def is_exit(self):
-        self.clear_screen()
         exit_flag = False
         msg = input('Желаете выйти из игры? (да/нет)')
         if msg == 'да':
