@@ -52,6 +52,7 @@ class Body(CheckUserAction):
                     print('Не угадал! Моё число число меньше!')
                     self.set_and_check_number()
                 else:
+                    self.attempts -=1
                     print('Поздравляем! Вы угадали за %d попыток' % self.attempts)
                     self.exit()
     
