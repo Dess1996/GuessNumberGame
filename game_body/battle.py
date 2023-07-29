@@ -14,6 +14,7 @@ class Body(CheckUserAction):
             self.check_ok = True
         else:
             print('Я жду от вас целое число от 1 до 100!')
+            self.is_exit()
     
     def set_and_check_number(self):
         self.set_user_number()
@@ -66,11 +67,11 @@ class Body(CheckUserAction):
                 self.battle_process()
     
     def is_exit(self):
-        exit_flag = False
         msg = input('Желаете выйти из игры? (д/н)')
         if msg == 'д':
             return self.exit()
-        return exit_flag
+        else:
+            return self.battle_process()
     
     def get_computer_number(self):
         com_number = GenerateComputerNumber()
