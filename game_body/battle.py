@@ -17,7 +17,7 @@ class Body(CheckUserAction):
         elif self.is_check_pause:
             return self.pause()
         else:
-            print('Я такие значения не принимаю')
+            print('Я принимаю значения только от 0 до 100')
             return self.is_exit()
     
     def battle_process(self):
