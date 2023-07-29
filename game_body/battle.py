@@ -7,11 +7,6 @@ import sys
 class Body(CheckUserAction):
     def __init__(self):
         CheckUserAction.__init__(self)
-        self.comp_number = 1
-        self.menu_number = 0
-        self.on_pause = False
-        self.on_exit = False
-        self.check_ok = False
     
     def check_limitation(self):
         if int(self.user_number) < 100:
@@ -20,17 +15,9 @@ class Body(CheckUserAction):
         else:
             print('Я жду от вас целое число от 1 до 100!')
     
-    def is_begin_battle(self):
-        msg = input('Загадал! Начинаем битву?(да/нет) ')
-        if msg == 'да':
-            pass
-        else:
-            print('Ах ты трусишка')
-            self.restart()
-    
     def set_and_check_number(self):
         self.set_user_number()
-        if self.user_number == 'пауза':
+        if self.user_number == 'п':
             return self.pause()
         else:
             return self.check_limitation()
@@ -71,8 +58,8 @@ class Body(CheckUserAction):
         elif self.menu_number == 2:
             self.restart()
         elif self.menu_number == 3:  # TODO: Доработать статистику, скорее всего понадобится создать новый класс
-            msg = input('Статистика недоступна, нажмите да, чтобы выйти: ')
-            if msg == 'да':
+            msg = input('Статистика недоступна, нажмите д, чтобы выйти: ')
+            if msg == 'д':
                 return self.pause()
         elif self.menu_number == 4:
             if not self.is_exit():
@@ -80,8 +67,8 @@ class Body(CheckUserAction):
     
     def is_exit(self):
         exit_flag = False
-        msg = input('Желаете выйти из игры? (да/нет)')
-        if msg == 'да':
+        msg = input('Желаете выйти из игры? (д/н)')
+        if msg == 'д':
             return self.exit()
         return exit_flag
     

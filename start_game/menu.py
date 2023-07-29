@@ -19,19 +19,19 @@ class Menu(Body):
     
     def start(self):
         self.clear_screen()
-        print('Вы в игре! Для того, чтобы поставить на паузу, напишите слово "пауза" в командной строке')
+        print('Вы в игре! Для того, чтобы поставить на паузу, напишите букву "п" в командной строке')
         self.battle_process()
     
     def restart(self):
         self.clear_screen()
         restart_flag = False
-        msg = input('Вы действительно хотите перезагрузить игру? (да/нет) ')
-        if msg == 'да':
+        msg = input('Вы действительно хотите перезагрузить игру? (д/н) ')
+        if msg == 'д':
             self.attempts = 1
             self.comp_number = 1
             self.set_and_check_number()
             restart_flag = True
-        elif msg == 'нет':
+        elif msg == 'н':
             self.set_and_check_number()
         return restart_flag
     
