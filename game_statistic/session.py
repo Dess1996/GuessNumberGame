@@ -2,9 +2,17 @@ from dataclasses import dataclass
 
 
 @dataclass
-class Statistics:
+class CheckParameters:
+    on_exit = False
+    is_check_number = False
+    is_check_pause = False
+    is_check_letters = False
+
+
+@dataclass
+class Statistics(CheckParameters):
     my_numbers = []
-    user_number = 0
+    user_action = 0
     comp_number = 1
     attempts = 1
 
@@ -12,6 +20,3 @@ class Statistics:
 @dataclass
 class GameParameters(Statistics):
     menu_number = 0
-    on_pause = False
-    on_exit = False
-    check_ok = False
