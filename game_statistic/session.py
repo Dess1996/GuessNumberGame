@@ -13,7 +13,7 @@ class CheckParameters:
 class Statistics(CheckParameters):
     user_action = 0
     comp_number = 1
-    attempts = 1
+    attempts = 0
     battle_result = ''
     result_status = {}
 

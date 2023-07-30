@@ -31,19 +31,21 @@ class Body(CheckUserAction):
             print('Теперь я загадываю')
             self.get_computer_number()
         while self.comp_number != self.user_action:
-            self.attempts += 1
             if self.comp_number > int(self.user_action):
                 self.battle_result = 'Не угадал! Моё число больше!'
                 print(self.battle_result)
+                self.attempts += 1  # TODO: попытка показывается со второго раза
                 self.write_statistics_data()
                 self.set_user_number()
                 self.computing_checking_parameters()
             elif self.comp_number < int(self.user_action):
                 self.battle_result = 'Не угадал! Моё число число меньше!'
+                self.attempts += 1
                 print(self.battle_result)
                 self.write_statistics_data()
                 self.set_user_number()
                 self.computing_checking_parameters()
+                 # TODO: попытка показывается со второго раза
             else:
                 self.battle_result = 'Поздравляем! Вы угадали за %d попыток' % self.attempts
                 print(self.battle_result)
