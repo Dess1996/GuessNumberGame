@@ -8,18 +8,20 @@ class Menu(Body):
         print('Добро пожаловать в числовую угадайку!')
         print("Вы в главном меню \n"
               "Нажмите на клавишу для активации действия:")
-        print('1 - Начать игру\n2 - Завершить игру')
+        print('1 - Начать игру\n2 - Статистика по всем играм\n3 - Завершить игру')
         self.number = int(input('Введите одно из предложенных чисел: '))
         if self.number == 1:
             self.start()
         elif self.number == 2:
+            print('Статистика по всем играм пока недоступна')  # TODO: сделать статистику по всем играм
+        elif self.number == 3:
             self.exit()
-
+    
     def start(self):
         self.clear_screen()
         print('Вы в игре! Для того, чтобы поставить на паузу, напишите букву "п" в командной строке')
         self.battle_process()
-
+    
     def restart(self):
         self.clear_screen()
         restart_flag = False
@@ -33,6 +35,6 @@ class Menu(Body):
         elif msg == 'н':
             self.battle_process()
         return restart_flag
-
+    
     def clear_screen(self):
         return os.system('cls')

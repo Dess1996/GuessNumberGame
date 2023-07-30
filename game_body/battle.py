@@ -88,7 +88,7 @@ class Body(CheckUserAction):
             return self.exit()
         else:
             return self.battle_process()
-
+    
     def get_computer_number(self):
         com_number = GenerateComputerNumber()
         self.comp_number = com_number.computer_number
