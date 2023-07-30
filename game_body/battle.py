@@ -34,7 +34,7 @@ class Body(CheckUserAction):
             if self.comp_number > int(self.user_action):
                 self.battle_result = 'Не угадал! Моё число больше!'
                 print(self.battle_result)
-                self.attempts += 1  # TODO: попытка показывается со второго раза
+                self.attempts += 1
                 self.write_statistics_data()
                 self.set_user_number()
                 self.computing_checking_parameters()
@@ -45,7 +45,6 @@ class Body(CheckUserAction):
                 self.write_statistics_data()
                 self.set_user_number()
                 self.computing_checking_parameters()
-                 # TODO: попытка показывается со второго раза
             else:
                 self.battle_result = 'Поздравляем! Вы угадали за %d попыток' % self.attempts
                 print(self.battle_result)
@@ -76,9 +75,9 @@ class Body(CheckUserAction):
             self.battle_process()
         elif menu_number == 2:
             self.restart()
-        elif menu_number == 3:  # TODO: Доработать статистику, скорее всего понадобится создать новый класс
+        elif menu_number == 3:
             print(self.get_statistics())
-            msg = input('Нажмите д, чтобы выйти: ')
+            msg = input('Нажмите д, чтобы выйти в меню паузы: ')
             if msg == 'д':
                 return self.pause()
         elif menu_number == 4:
