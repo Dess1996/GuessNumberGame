@@ -1,5 +1,3 @@
-from limitations.user_number import CheckUserAction
-from generator.generate_user_number import GenerateUserAction
 from game_body.battle import Body
 import os
 
@@ -16,12 +14,12 @@ class Menu(Body):
             self.start()
         elif self.number == 2:
             self.exit()
-    
+
     def start(self):
         self.clear_screen()
         print('Вы в игре! Для того, чтобы поставить на паузу, напишите букву "п" в командной строке')
         self.battle_process()
-    
+
     def restart(self):
         self.clear_screen()
         restart_flag = False
@@ -35,6 +33,6 @@ class Menu(Body):
         elif msg == 'н':
             self.battle_process()
         return restart_flag
-    
+
     def clear_screen(self):
         return os.system('cls')

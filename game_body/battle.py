@@ -1,7 +1,5 @@
 from limitations.user_number import CheckUserAction
-from generator.generate_user_number import GenerateUserAction
 from generator.generate_computer_number import GenerateComputerNumber
-
 
 import sys
 import pandas as pd
@@ -11,7 +9,7 @@ from tabulate import tabulate
 class Body(CheckUserAction):
     def __init__(self):
         CheckUserAction.__init__(self)
-    
+
     def computing_checking_parameters(self):
         self.check_on_number()
         self.check_on_actions()
@@ -23,7 +21,7 @@ class Body(CheckUserAction):
         else:
             print('Я принимаю значения только от 0 до 100')
             return self.is_exit()
-    
+
     def battle_process(self):
         self.set_user_number()
         self.computing_checking_parameters()
@@ -49,18 +47,18 @@ class Body(CheckUserAction):
                 self.battle_result = 'Поздравляем! Вы угадали за %d попыток' % self.attempts
                 print(self.battle_result)
                 self.exit()
-    
+
     def write_statistics_data(self):
         self.result_status[self.attempts] = {}
         self.result_status[self.attempts]['попытка'] = str(self.attempts)
         self.result_status[self.attempts]['результат'] = self.battle_result
         self.result_status[self.attempts]['введённое пользователем значение'] = self.user_action
-    
+
     def get_statistics(self):
         df = pd.DataFrame.from_dict(self.result_status).T
         df = df.set_index('попытка')
         return tabulate(df, headers='keys', tablefmt='psql')
-    
+
     def pause(self):
         self.clear_screen()
         print('Игра на паузе \n'
@@ -83,18 +81,18 @@ class Body(CheckUserAction):
         elif menu_number == 4:
             if not self.is_exit():
                 self.battle_process()
-    
+
     def is_exit(self):
         msg = input('Желаете выйти из игры? (д/н)')
         if msg == 'д':
             return self.exit()
         else:
             return self.battle_process()
-    
+
     def get_computer_number(self):
         com_number = GenerateComputerNumber()
         self.comp_number = com_number.computer_number
-    
+
     def exit(self):
         print('Пока')
         sys.exit(0)
