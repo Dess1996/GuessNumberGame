@@ -11,10 +11,11 @@ class CheckParameters:
 
 @dataclass
 class Statistics(CheckParameters):
-    my_numbers = []
     user_action = 0
     comp_number = 1
     attempts = 1
+    battle_result = ''
+    result_status = {}
 
 
 @dataclass
