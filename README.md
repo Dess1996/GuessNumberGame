@@ -1,14 +1,36 @@
-# GuessNumberGame
-Это простая числовая угадайка. На данный проект меня вдохновил курс "Поколение Python: курс для начинающих" (https://stepik.org/course/58852/). \
-Поскольку у меня уже есть опыт программирования, то я принял решение разработать мини-игру с применением ООП. 
-## Правила игры
-1. Запускаете игру в консоли
-2. Нажимаете начать игру
-3. И пробуете угадать, что загадал компьютер.
-4. Игрок всегда может поставить игру на паузу и в случае необходимости посмотреть статистику, перезагрузить или выйти из игры
-## Дальнейшее развитие проекта
-1. Подключить базу данных для просмотра статистических сведений уже не по одной игре, а по всем играм
-2. Добавить выбор пользователем уровня сложности
-3. Подумать над GUI интерфейсом
-## Следите за новостями!
-![Изображение](https://writercenter.ru/uploads/images/00/22/77/2019/09/02/b51b6e.png "Угадайка")
+![logo](https://writercenter.ru/uploads/images/00/22/77/2019/09/02/b51b6e.png "Угадайка")
+
+
+# Basic
+This is a simple numerical guessing game. This project was inspired by the course "Python Generation: A Course for Beginners" (https://stepik.org/course/58852/).
+Since I already have programming experience, I decided to develop a mini-game using OOP.
+
+
+# Rules
+1. You press start the game
+2. and try to guess what the computer has guessed.
+3. the player can always pause the game and if necessary to view statistics, reload or quit the game
+
+
+# Start
+1. Clone repo:
+```bash
+git clone https://github.com/Dess1996/GuessNumberGame.git
+```
+
+2. Install dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+3. Start:
+```bash
+python3 main.py
+```
+
+
+# Future
+1. Connect the database to show statistics.
+2. Add a difficulty choice.
+3. Add a graphical interface.
+
