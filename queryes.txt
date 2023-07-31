@@ -1,0 +1,9 @@
+#Возможные запросы к базе данных
+
+##   Общая таблица со всеми играми:
+
+#SELECT game.try, computer.computer_number, user.user_number, game.game_number, results.status
+#FROM results
+#JOIN computer ON computer.id = results.computer_number_id
+#JOIN user ON user.id = results.user_number_id
+#JOIN game ON game.id = results.game_number_id

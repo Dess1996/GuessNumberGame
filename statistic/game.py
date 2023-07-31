@@ -3,59 +3,50 @@ import sqlite3
 
 class DataBase:
     def __init__(self):
-        self.con = sqlite3.connect("GuessGame.db")
+        self.con = sqlite3.connect("GuessGame1.db")
         self.cur = self.con.cursor()
     
     def create_table(self):
         self.cur.execute("""
-        CREATE TABLE IF NOT EXISTS try_table
+        CREATE TABLE IF NOT EXISTS user
         (
-            id integer PRIMARY KEY,
-            number integer NOT NULL
+            id integer PRIMARY KEY AUTOINCREMENT,
+            user_number integer
+            
         )
         """)
         
         self.cur.execute("""
-        CREATE TABLE IF NOT EXISTS win_table
+        CREATE TABLE IF NOT EXISTS computer
         (
-            id integer PRIMARY KEY,
-            is_win text
-        )
-        
-        
-        """)
-
-        self.cur.execute("""
-        CREATE TABLE IF NOT EXISTS statistic_game
-        (
-            id integer PRIMARY KEY,
-            user_number integer,
-            computer_number integer,
-            result text
+            id integer PRIMARY KEY AUTOINCREMENT,
+            computer_number integer
         )
         """)
-
+        
         self.cur.execute("""
-                CREATE TABLE IF NOT EXISTS game_table
-                (
-                    id integer PRIMARY KEY,
-                    game_number int
-                )
-                """)
+        CREATE TABLE IF NOT EXISTS game
+        (
+            id integer PRIMARY KEY AUTOINCREMENT,
+            game_number integer,
+            try integer
+            
+        )
+        """)
         
         self.cur.execute("""
                 CREATE TABLE IF NOT EXISTS results
                 (
-                    id integer PRIMARY KEY,
-                    try_table_id integer NOT NULL,
-                    win_table_id integer NOT NULL,
-                    statistic_game_id integer NOT NULL,
-                    game_table_id integer NOT NULL,
+                    id integer PRIMARY KEY AUTOINCREMENT,
                     
-                    FOREIGN KEY (try_table_id) REFERENCES try_table(id),
-                    FOREIGN KEY (win_table_id) REFERENCES win_table(id),
-                    FOREIGN KEY (statistic_game_id) REFERENCES statistic_game(id),
-                    FOREIGN KEY (game_table_id) REFERENCES game_table(id)
+                    user_number_id integer,
+                    computer_number_id integer,
+                    game_number_id integer,
+                    status text,
+                    
+                    FOREIGN KEY (user_number_id) REFERENCES user(id),
+                    FOREIGN KEY (computer_number_id) REFERENCES computer(id),
+                    FOREIGN KEY (game_number_id) REFERENCES game(id)
                     
                     
                 )
