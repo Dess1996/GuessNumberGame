@@ -2,7 +2,7 @@
 
 
 # Basic
-This is a simple numerical guessing game. This project was inspired by the course "Python Generation: A Course for Beginners" (https://stepik.org/course/58852/).
+This is a simple numerical guessing game. This project was inspired by the <a link='https://stepik.org/course/58852/'>course</a> "Python Generation: A Course for Beginners" .
 Since I already have programming experience, I decided to develop a mini-game using OOP.
 
 
