@@ -25,14 +25,15 @@ class Menu(Body):
     def restart(self):
         self.clear_screen()
         restart_flag = False
-        msg = input('Вы действительно хотите перезагрузить игру? (да/нет) ')
-        if msg == 'да':
-            self.attempts = 1
+        msg = input('Вы действительно хотите перезагрузить игру? (д/н) ')
+        if msg == 'д':
+            self.attempts = 0
             self.comp_number = 1
-            self.set_and_check_number()
+            self.result_status = {}
+            self.battle_process()
             restart_flag = True
-        elif msg == 'нет':
-            self.set_and_check_number()
+        elif msg == 'н':
+            self.battle_process()
         return restart_flag
     
     def clear_screen(self):
