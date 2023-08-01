@@ -40,3 +40,4 @@ class StatisticsSessionParameters(CheckParameters):
 @dataclass
 class GameParameters(StatisticsSessionParameters):
     menu_number = 0
+    game_number = 0
