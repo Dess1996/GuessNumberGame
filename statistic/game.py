@@ -5,8 +5,6 @@ class DataBase:
     def __init__(self):
         self.con = sqlite3.connect("GuessGame1.db")
         self.cur = self.con.cursor()
-        self.com_number = 55  # TODO: пока число компьютера константа
-        self.game_number = 1  # TODO:  пока номер игры константа
     
     def create_table(self):
         self.cur.execute("""
@@ -65,15 +63,14 @@ class DataBase:
             game_number = (SELECT MAX(game_number) FROM game);
         
         """)
-        res.fetchall()
-        return res
+        return res.fetchall()
     
-    def write_data(self):
+    def write_data(self, data, com_number, game_number):
         for i, j in data.items():
-            self.cur.execute("INSERT INTO computer(computer_number) VALUES (?)", (str(self.com_number),))
+            self.cur.execute("INSERT INTO computer(computer_number) VALUES (?)", (str(com_number),))
             self.cur.execute("INSERT INTO user(user_number) VALUES (?)", (j['введённое пользователем значение'],))
-            self.cur.execute("INSERT INTO game(game_number, try ) VALUES (?, ?)", (self.game_number, j['попытка']))
-            self.cur.execute("INSERT INTO results(user_number_id, computer_number_id, game_number_id, status  ) "
+            self.cur.execute("INSERT INTO game(game_number, try ) VALUES (?, ?)", (game_number, j['попытка']))
+            self.cur.execute("INSERT INTO results(user_number_id, computer_number_id, game_number_id, status) "
                              "VALUES (?, ?, ?, ?)", (i, i, i, j['результат']))
         self.con.commit()
     
@@ -88,14 +85,9 @@ class DataBase:
         return res.fetchall()
 
 
-data = {1: {'попытка': '1', 'результат': 'Не угадал! Моё число больше!', 'введённое пользователем значение': '55'},
-        2: {'попытка': '2', 'результат': 'Не угадал! Моё число число меньше!',
-            'введённое пользователем значение': '67'},
-        3: {'попытка': '3', 'результат': 'Не угадал! Моё число число меньше!',
-            'введённое пользователем значение': '88'}}
-
 if __name__ == '__main__':
     db = DataBase()
     #    db.create_table()
     #    db.write_data()
-    print(db.show_data())
+    for i in db.show_data():
+        print(i)

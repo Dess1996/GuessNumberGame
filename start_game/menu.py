@@ -1,6 +1,5 @@
-from limitations.user_number import CheckUserAction
-from generator.generate_user_number import GenerateUserAction
 from game_body.battle import Body
+
 import os
 
 
@@ -10,15 +9,21 @@ class Menu(Body):
         print('Добро пожаловать в числовую угадайку!')
         print("Вы в главном меню \n"
               "Нажмите на клавишу для активации действия:")
-        print('1 - Начать игру\n2 - Завершить игру')
+        print('1 - Начать игру\n2 - Статистика по всем играм\n3 - Завершить игру')
         self.number = int(input('Введите одно из предложенных чисел: '))
         if self.number == 1:
             self.start()
         elif self.number == 2:
+            print('Статистика по всем играм пока недоступна')  # TODO: сделать статистику по всем играм
+        elif self.number == 3:
             self.exit()
-    
+
     def start(self):
         self.clear_screen()
+        if not self.db.get_max_game_number():
+            self.game_number += 1
+        else:
+            self.game_number = self.db.get_max_game_number()[0][0] + 1
         print('Вы в игре! Для того, чтобы поставить на паузу, напишите слово "пауза" в командной строке')
         self.battle_process()
     

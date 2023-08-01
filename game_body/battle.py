@@ -1,5 +1,6 @@
 from limitations.user_number import CheckUserAction
 from generator.generate_computer_number import GenerateComputerNumber
+from statistic.game import DataBase
 
 import sys
 import pandas as pd
@@ -9,6 +10,8 @@ from tabulate import tabulate
 class Body(CheckUserAction):
     def __init__(self):
         CheckUserAction.__init__(self)
+        self.db = DataBase()
+        self.db.create_table()
     
     def computing_checking_parameters(self):
         self.check_on_number()
@@ -44,8 +47,11 @@ class Body(CheckUserAction):
                 self.set_user_number()
                 self.computing_checking_parameters()
             else:
+                self.attempts += 1
                 self.battle_result = 'Поздравляем! Вы угадали за %d попыток' % self.attempts
                 print(self.battle_result)
+                self.write_statistics_data()
+                self.db.write_data(data=self.result_status, com_number=self.comp_number, game_number=self.game_number)
                 self.exit()
     
     def write_statistics_data(self):
