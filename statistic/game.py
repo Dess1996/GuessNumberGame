@@ -51,6 +51,10 @@ class DataBase:
                     
                 )
                 """)
+        self.con.commit()
+        
+    def write_data(self):
+        pass
 
 
 if __name__ == '__main__':

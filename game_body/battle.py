@@ -1,59 +1,63 @@
 from limitations.user_number import CheckUserAction
-from generator.generate_user_number import GenerateUserAction
 from generator.generate_computer_number import GenerateComputerNumber
+
 import sys
+import pandas as pd
+from tabulate import tabulate
 
 
 class Body(CheckUserAction):
     def __init__(self):
         CheckUserAction.__init__(self)
-        self.comp_number = 1
-        self.menu_number = 0
-        self.on_pause = False
-        self.on_exit = False
-        self.check_ok = False
     
-    def check_limitation(self):
-        if int(self.user_number) < 100:
-            print('Проверка прошла успешно')
-            self.check_ok = True
-        else:
-            print('Я жду от вас целое число от 1 до 100!')
-    
-    def is_begin_battle(self):
-        msg = input('Загадал! Начинаем битву?(да/нет) ')
-        if msg == 'да':
-            pass
-        else:
-            print('Ах ты трусишка')
-            self.restart()
-    
-    def set_and_check_number(self):
-        self.set_user_number()
-        if self.user_number == 'пауза':
+    def computing_checking_parameters(self):
+        self.check_on_number()
+        self.check_on_actions()
+        self.check_on_pause()
+        if self.is_check_number:
+            print('Ты прошёл все проверки!')
+        elif self.is_check_pause:
             return self.pause()
         else:
-            return self.check_limitation()
+            print('Я принимаю значения только от 0 до 100')
+            return self.is_exit()
     
     def battle_process(self):
-        self.set_and_check_number()
-        if not self.check_ok:
-            return self.is_exit()
-        else:
-            print('Хорошо, ты справился! Теперь я подумаю...')
-            if self.comp_number == 1:
-                self.get_computer_number()
-            while self.comp_number != self.user_number:
+        self.set_user_number()
+        self.computing_checking_parameters()
+        if self.comp_number == 1:
+            print('Теперь я загадываю')
+            self.get_computer_number()
+        while self.comp_number != self.user_action:
+            if self.comp_number > int(self.user_action):
+                self.battle_result = 'Не угадал! Моё число больше!'
+                print(self.battle_result)
                 self.attempts += 1
-                if self.comp_number > int(self.user_number):
-                    print('Не угадал! Моё число больше!')
-                    self.set_and_check_number()
-                elif self.comp_number < int(self.user_number):
-                    print('Не угадал! Моё число число меньше!')
-                    self.set_and_check_number()
-                else:
-                    print('Поздравляем! Вы угадали за %d попыток' % self.attempts)
-                    self.exit()
+                self.write_statistics_data()
+                self.set_user_number()
+                self.computing_checking_parameters()
+            elif self.comp_number < int(self.user_action):
+                self.battle_result = 'Не угадал! Моё число число меньше!'
+                self.attempts += 1
+                print(self.battle_result)
+                self.write_statistics_data()
+                self.set_user_number()
+                self.computing_checking_parameters()
+            else:
+                self.battle_result = 'Поздравляем! Вы угадали за %d попыток' % self.attempts
+                print(self.battle_result)
+                self.exit()
+    
+    def write_statistics_data(self):
+        self.result_status[self.attempts] = {}
+        self.result_status[self.attempts]['попытка'] = str(self.attempts)
+        self.result_status[self.attempts]['результат'] = self.battle_result
+        self.result_status[self.attempts]['введённое пользователем значение'] = self.user_action
+    
+    def get_statistics(self):
+        df = pd.DataFrame.from_dict(self.result_status).T
+        df = df.set_index('попытка')
+        return tabulate(df, headers='keys', tablefmt='psql')
     
     def pause(self):
         self.clear_screen()
@@ -63,36 +67,31 @@ class Body(CheckUserAction):
               '2 - Перезагрузить игру\n'
               '3 - Посмотреть статистику игры\n'
               '4 - Завершить игру')
-        self.menu_number = int(input('Выберете действие: '))
-        if self.menu_number == 1:
-            self.on_pause = False
+        menu_number = int(input('Выберете действие: '))
+        if menu_number == 1:
+            self.is_check_pause = False
             self.battle_process()
-        elif self.menu_number == 2:
+        elif menu_number == 2:
             self.restart()
-        elif self.menu_number == 3:
-            msg = input('Статистика недоступна, нажмите да, чтобы выйти')
-            if msg == 'да':
+        elif menu_number == 3:
+            print(self.get_statistics())
+            msg = input('Нажмите д, чтобы выйти в меню паузы: ')
+            if msg == 'д':
                 return self.pause()
-        elif self.menu_number == 4:
+        elif menu_number == 4:
             if not self.is_exit():
                 self.battle_process()
     
     def is_exit(self):
-        exit_flag = False
-        msg = input('Желаете выйти из игры? (да/нет)')
-        if msg == 'да':
+        msg = input('Желаете выйти из игры? (д/н)')
+        if msg == 'д':
             return self.exit()
-        return exit_flag
+        else:
+            return self.battle_process()
     
     def get_computer_number(self):
         com_number = GenerateComputerNumber()
         self.comp_number = com_number.computer_number
-    
-    def set_user_number(self):
-        GenerateUserAction.set_user_number(self)
-    
-    def check_number(self):
-        CheckUserAction.check_number(self)
     
     def exit(self):
         print('Пока')
