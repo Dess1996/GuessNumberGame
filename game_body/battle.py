@@ -48,6 +48,7 @@ class Body(UserLimit, Pause):
                 print(self.battle_result)
                 break
         self.write_session_statistics_data()
+        self.game_number += 1
         self.write_game_statistics()
         self.write_data_game_statistics(data=self.game_statistic)
         self.exit()
