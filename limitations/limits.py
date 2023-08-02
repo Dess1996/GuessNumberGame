@@ -1,9 +1,11 @@
-from generator.generate_user_number import GenerateUserAction
+from generator.generate_user_number import User
+from statistic.game import CheckParameters
 
 
-class CheckUserAction(GenerateUserAction):
+class UserLimit(CheckParameters, User):
     def __init__(self):
-        GenerateUserAction.__init__(self)
+        CheckParameters.__init__(self)
+        User.__init__(self)
 
     def check_on_actions(self):
         if not self.is_check_pause and not self.is_check_number:
@@ -22,4 +24,3 @@ class CheckUserAction(GenerateUserAction):
             self.is_check_number = True
         else:
             self.is_check_number = False
-        
