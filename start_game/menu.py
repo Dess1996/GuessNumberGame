@@ -20,7 +20,6 @@ class Menu(Body):
         if self.number == 1:
             self.start()
         elif self.number == 2:
-            print('Статистика по всем играм пока недоступна')  # TODO: сделать статистику по всем играм
             for i in self.show_data():
                 print(i)
         elif self.number == 3:
@@ -28,7 +27,6 @@ class Menu(Body):
     
     def start(self):
         self.clear_screen()
-        print('Вы в игре! Для того, чтобы поставить на паузу, напишите букву "п" в командной строке')
         if not self.get_max_game_number():
             self.game_number += 1
         else:
