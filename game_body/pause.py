@@ -3,13 +3,13 @@ import sys
 
 
 from statistic.game import CheckParameters
-from statistic.database import DataBase
+from statistic.database import GameQuery
 
 
-class Pause(CheckParameters, DataBase):
+class Pause(CheckParameters, GameQuery):
     def __init__(self):
         CheckParameters.__init__(self)
-        DataBase.__init__(self)
+        GameQuery.__init__(self)
     
     def get_pause(self):
         self.clear_screen()
@@ -26,7 +26,7 @@ class Pause(CheckParameters, DataBase):
         elif menu_number == 2:
             self.restart()
         elif menu_number == 3:
-            print(self.get_session_statistics_data())
+            print(self.get_statistics_data_in_table())
             msg = input('Нажмите д, чтобы выйти в меню паузы: ')
             if msg == 'д':
                 return self.get_pause()

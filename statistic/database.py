@@ -8,7 +8,6 @@ class DataBase(Statistics):
         Statistics.__init__(self)
         self.con = sqlite3.connect("GuessGame1.db")
         self.cur = self.con.cursor()
-        
     
     def create_table(self):
         self.cur.execute("""
@@ -56,11 +55,15 @@ class DataBase(Statistics):
                 )
                 """)
         self.con.commit()
+
+
+class GameQuery(DataBase):
+    def __init__(self):
+        DataBase.__init__(self)
     
     def get_max_game_number_id(self):
         res = self.cur.execute("""SELECT MAX(game_number_id) FROM results""")
         return res.fetchone()
-        
     
     def get_max_game_number(self):
         res = self.cur.execute("""SELECT MAX(game_number) FROM game""")
@@ -74,8 +77,8 @@ class DataBase(Statistics):
             self.cur.execute("INSERT INTO game(game_number, try ) VALUES (?, ?)", (j['номер игры'], j['попытка']))
             max_game_id += 1
             self.cur.execute("INSERT INTO results(user_number_id, computer_number_id, game_number_id, status) "
-                             "VALUES (?, ?, ?, ?)", (i, i,str(max_game_id), j['результат']))
-           
+                             "VALUES (?, ?, ?, ?)", (i, i, str(max_game_id), j['результат']))
+        
         self.con.commit()
     
     def show_data(self):

@@ -38,7 +38,7 @@ class Statistics(StatisticsParameters):
         self.session_status[self.attempts]['результат'] = self.battle_result
         self.session_status[self.attempts]['введённое пользователем значение'] = self.user_action
     
-    def get_session_statistics_data(self):
+    def get_statistics_data_in_table(self):
         df = pd.DataFrame.from_dict(self.session_status).T
         df = df.set_index('попытка')
         return tabulate(df, headers='keys', tablefmt='psql')
@@ -50,3 +50,6 @@ class Statistics(StatisticsParameters):
             self.game_statistic[try_id]['загаданное число компьютера'] = self.comp_number
             for item, value in values.items():
                 self.game_statistic[try_id][item] = value
+   
+    def convert_game_statistics_to_dict(self):
+        pass
