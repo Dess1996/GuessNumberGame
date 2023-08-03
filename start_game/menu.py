@@ -9,7 +9,6 @@ class Menu(Body):
         Body.__init__(self)
         self.create_table()
         self.greetings()
-        
     
     def greetings(self):
         print('Добро пожаловать в числовую угадайку!')
@@ -27,7 +26,7 @@ class Menu(Body):
     
     def start(self):
         self.clear_screen()
-        if not self.get_max_game_number():
+        if not self.get_max_game_number()[0][0]:
             self.game_number += 1
         else:
             self.game_number = self.get_max_game_number()[0][0] + 1

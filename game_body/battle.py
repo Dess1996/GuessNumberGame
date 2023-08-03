@@ -29,26 +29,20 @@ class Body(UserLimit, Pause):
         if self.comp_number == 1:
             print('Теперь я загадываю')
             self.get_computer_number()
+        if self.comp_number > int(self.user_action):
+            self.battle_result = 'Не угадал! Моё число больше!'
+            self.write_session_statistics_data()
+        elif self.comp_number < int(self.user_action):
+            self.battle_result = 'Не угадал! Моё число число меньше!'
+            print(self.battle_result)
+            self.write_session_statistics_data()
+        else:
+            self.battle_result = 'Поздравляем! Вы угадали за %d попыток' % self.attempts
+            self.write_session_statistics_data()
     
     def battle_process(self):
-        while self.comp_number != self.user_action:
-            if self.comp_number > int(self.user_action):
-                self.battle_result = 'Не угадал! Моё число больше!'
-                print(self.battle_result)
-                self.create_new_attempt()
-                self.write_session_statistics_data()
-            elif self.comp_number < int(self.user_action):
-                self.battle_result = 'Не угадал! Моё число число меньше!'
-                print(self.battle_result)
-                self.create_new_attempt()
-                self.write_session_statistics_data()
-            else:
-                self.attempts += 1
-                self.battle_result = 'Поздравляем! Вы угадали за %d попыток' % self.attempts
-                print(self.battle_result)
-                break
-        self.write_session_statistics_data()
-        self.game_number += 1
+        while str(self.comp_number) != self.user_action:
+            self.create_new_attempt()
         self.write_game_statistics()
         self.write_data_game_statistics(data=self.game_statistic)
         self.exit()
@@ -56,3 +50,7 @@ class Body(UserLimit, Pause):
     def get_computer_number(self):
         com_number = GenerateComputerNumber()
         self.comp_number = com_number.computer_number
+
+if __name__ == '__main__':
+    bd = Body()
+    bd.battle_process()
