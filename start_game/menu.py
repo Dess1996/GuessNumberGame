@@ -19,8 +19,7 @@ class Menu(Body):
         if self.number == 1:
             self.start()
         elif self.number == 2:
-            for i in self.show_data():
-                print(i)
+            self.choose_statistic_option()
         elif self.number == 3:
             self.exit()
     
@@ -32,6 +31,30 @@ class Menu(Body):
             self.game_number = self.get_max_game_number()[0][0] + 1
         print('Вы в игре! Для того, чтобы поставить на паузу, напишите слово "пауза" в командной строке')
         self.battle_process()
+    
+    def choose_statistic_option(self):
+        print('\nВ этом меню у Вас есть возможность посмотреть статистику по всем играм')
+        print('Количество игр, сыгранных пользователем: %d \n\n' % (self.get_max_game_number()[0][0]))
+        print('Доступные запросы:')
+        print('1 - Вывести статистику по всем играм')
+        print('2 - Очитсить статистику')
+        print('3 - Выйти в главное меню')
+        self.number = int(input('\n\nВведите одно из предложенных чисел: '))
+        if self.number == 1:
+            self.clear_screen()
+            res_query = self.show_data()
+            self.convert_game_statistics_to_dict(res_query)
+            print('Статистика по играм:\n')
+            print(self.get_statistic_game_data_in_table())
+            main_menu = input('Нажмите д, для выхода в главное меню: ')
+            if main_menu == 'д':
+                return self.greetings()
+            
+        elif self.number == 2:
+            print('Пока не могу почистить статистику')
+            self.choose_statistic_option()
+        else:
+            self.greetings()
     
     def restart(self):
         self.clear_screen()
@@ -46,3 +69,8 @@ class Menu(Body):
         elif msg == 'н':
             self.battle_process()
         return restart_flag
+
+
+if __name__ == '__main__':
+    sh = Menu()
+    sh.choose_statistic_option()
