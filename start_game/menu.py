@@ -2,6 +2,7 @@ from game_body.battle import Body
 from game_body.pause import Pause
 from statistic.game import StatisticsParameters
 from statistic.game import GameParameters
+import os
 
 
 class Menu(Body):
@@ -33,8 +34,12 @@ class Menu(Body):
         self.battle_process()
     
     def choose_statistic_option(self):
+        self.clear_screen()
         print('\nВ этом меню у Вас есть возможность посмотреть статистику по всем играм')
-        print('Количество игр, сыгранных пользователем: %d \n\n' % (self.get_max_game_number()[0][0]))
+        if self.get_max_game_number()[0][0] is not None:
+            print('Количество игр, сыгранных пользователем: %d \n\n' % (self.get_max_game_number()[0][0]))
+        else:
+            print('Вы пока не играли')
         print('Доступные запросы:')
         print('1 - Вывести статистику по всем играм')
         print('2 - Очитсить статистику')
@@ -46,15 +51,19 @@ class Menu(Body):
             self.convert_game_statistics_to_dict(res_query)
             print('Статистика по играм:\n')
             print(self.get_statistic_game_data_in_table())
+            main_menu = input('Нажмите д, для выхода в меню статистики: ')
+            if main_menu == 'д':
+                return self.choose_statistic_option()
+        elif self.number == 2:
+            self.close_connection()
+            os.remove('GuessGame1.db')
+            print('Статистика очищена!')
             main_menu = input('Нажмите д, для выхода в главное меню: ')
             if main_menu == 'д':
-                return self.greetings()
-            
-        elif self.number == 2:
-            print('Пока не могу почистить статистику')
-            self.choose_statistic_option()
-        else:
-            self.greetings()
+                return Menu()
+                
+            else:
+                self.greetings()
     
     def restart(self):
         self.clear_screen()

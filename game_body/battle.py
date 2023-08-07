@@ -29,8 +29,10 @@ class Body(UserLimit, Pause):
         if self.comp_number == 1:
             print('Теперь я загадываю')
             self.get_computer_number()
+            print(self.comp_number)
         if self.comp_number > int(self.user_action):
             self.battle_result = 'Не угадал! Моё число больше!'
+            print(self.battle_result)
             self.write_session_statistics_data()
         elif self.comp_number < int(self.user_action):
             self.battle_result = 'Не угадал! Моё число число меньше!'
@@ -38,6 +40,7 @@ class Body(UserLimit, Pause):
             self.write_session_statistics_data()
         else:
             self.battle_result = 'Поздравляем! Вы угадали за %d попыток' % self.attempts
+            print(self.battle_result)
             self.write_session_statistics_data()
     
     def battle_process(self):

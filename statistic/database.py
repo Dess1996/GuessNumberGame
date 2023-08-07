@@ -55,6 +55,9 @@ class DataBase(Statistics):
                 )
                 """)
         self.con.commit()
+    
+    def close_connection(self):
+        self.con.close()
 
 
 class GameQuery(DataBase):
@@ -72,10 +75,14 @@ class GameQuery(DataBase):
     def write_data_game_statistics(self, data):
         max_game_id = self.get_max_game_number_id()[0]
         for i, j in data.items():
+            if not max_game_id:
+                max_game_id = 1
+            else:
+                max_game_id += 1
             self.cur.execute("INSERT INTO computer(computer_number) VALUES (?)", (j['загаданное число компьютера'],))
             self.cur.execute("INSERT INTO user(user_number) VALUES (?)", (j['введённое пользователем значение'],))
             self.cur.execute("INSERT INTO game(game_number, try ) VALUES (?, ?)", (j['номер игры'], j['попытка']))
-            max_game_id += 1
+            
             self.cur.execute("INSERT INTO results(user_number_id, computer_number_id, game_number_id, status) "
                              "VALUES (?, ?, ?, ?)", (i, i, str(max_game_id), j['результат']))
         
