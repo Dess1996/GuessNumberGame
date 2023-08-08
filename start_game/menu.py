@@ -15,13 +15,17 @@ class Menu(Body):
         print('Добро пожаловать в числовую угадайку!')
         print("Вы в главном меню \n"
               "Нажмите на клавишу для активации действия:")
-        print('1 - Начать игру\n2 - Статистика по всем играм\n3 - Завершить игру')
+        print('1 - Начать игру\n2 - Выбрать уровень сложности\n3 - Статистика по всем играм\n4 - Завершить игру')
         self.number = int(input('Введите одно из предложенных чисел: '))
         if self.number == 1:
             self.start()
         elif self.number == 2:
-            self.choose_statistic_option()
+            msg = input('В разработке, нажмите д для выхода в меню игры ')
+            if msg == 'д':
+                Menu()
         elif self.number == 3:
+            self.choose_statistic_option()
+        elif self.number == 4:
             self.exit()
     
     def start(self):
@@ -32,6 +36,7 @@ class Menu(Body):
             self.game_number = self.get_max_game_number()[0][0] + 1
         print('Вы в игре! Для того, чтобы поставить на паузу, напишите слово "пауза" в командной строке')
         self.battle_process()
+        return Menu()
     
     def choose_statistic_option(self):
         self.clear_screen()
@@ -60,10 +65,11 @@ class Menu(Body):
             print('Статистика очищена!')
             main_menu = input('Нажмите д, для выхода в главное меню: ')
             if main_menu == 'д':
-                return Menu()
+                return Menu().greetings()
+        elif self.number == 3:
+            return Menu().greetings()
                 
-            else:
-                self.greetings()
+            
     
     def restart(self):
         self.clear_screen()
