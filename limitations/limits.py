@@ -24,3 +24,4 @@ class UserLimit(CheckParameters, User):
             self.is_check_number = True
         else:
             self.is_check_number = False
+    

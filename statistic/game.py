@@ -66,6 +66,7 @@ class Statistics(StatisticsParameters):
             self.game_statistic[row]['число пользователя'] = i[3]
             self.game_statistic[row]['статус'] = i[4]
             row += 1
+        return self.game_statistic
             
             
         

@@ -29,7 +29,6 @@ class Body(UserLimit, Pause):
         if self.comp_number == 1:
             print('Теперь я загадываю')
             self.get_computer_number()
-            print(self.comp_number)
         if self.comp_number > int(self.user_action):
             self.battle_result = 'Не угадал! Моё число больше!'
             print(self.battle_result)
@@ -54,6 +53,3 @@ class Body(UserLimit, Pause):
         com_number = GenerateComputerNumber()
         self.comp_number = com_number.computer_number
 
-if __name__ == '__main__':
-    bd = Body()
-    bd.battle_process()

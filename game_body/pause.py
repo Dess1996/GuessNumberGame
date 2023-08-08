@@ -26,7 +26,7 @@ class Pause(CheckParameters, GameQuery):
         elif menu_number == 2:
             self.restart()
         elif menu_number == 3:
-            print(self.get_statistics_data_in_table())
+            print(self.get_statistics_session_data_in_table())
             msg = input('Нажмите д, чтобы выйти в меню паузы: ')
             if msg == 'д':
                 return self.get_pause()
